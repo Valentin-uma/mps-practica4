@@ -3,14 +3,24 @@ package org.mps.crossover;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mps.EvolutionaryAlgorithmException;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 public class OnePointCrossoverTest {
 
     public OnePointCrossover crossover;
+
+    @Mock
+    Random randomMock;
+
+    @InjectMocks
+    OnePointCrossover crossoverInjectedMock;
 
     @BeforeEach
     public void onePointCrossoverSetup () {
@@ -76,5 +86,21 @@ public class OnePointCrossoverTest {
         }
 
         assertNotEquals(unexpectedResult, returnedResult);
+    }
+
+    public void crossover_WhenParentsAreValidAndRandomValueDetermined_returnedCorrectArray() {
+        int[] parent1 = {1, 2, 3};
+        int[] parent2 = {4, 5, 6};
+        int[][] expectedValue = {{1, 2, 6}, {4, 5, 3}};
+        int[][] returnedValue = null;
+        when(randomMock.nextInt(parent1.length - 1)).thenReturn(2);
+
+        try {
+            returnedValue = crossover.crossover(parent1, parent2);
+        } catch (EvolutionaryAlgorithmException e) {
+            System.out.println(e.getMessage());
+        }
+
+        assertEquals(expectedValue, returnedValue);
     }
 }
