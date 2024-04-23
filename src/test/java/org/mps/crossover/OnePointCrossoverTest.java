@@ -1,3 +1,10 @@
+/*
+nombre del grupo:
+
+- Valentin Pecqueux
+- José Canto
+*/
+
 package org.mps.crossover;
 
 import org.junit.jupiter.api.BeforeEach;
