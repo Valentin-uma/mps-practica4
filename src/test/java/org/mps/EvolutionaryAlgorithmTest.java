@@ -83,4 +83,32 @@ public class EvolutionaryAlgorithmTest {
         assertEquals(newOperator, newReturnedOperator);
         assertNotEquals(oldReturnedOperator, newReturnedOperator);
     }
+
+    @Test
+    public void testOptimize_ValidPopulation() throws EvolutionaryAlgorithmException {
+        // Arrange
+        int[][] population = {{1, 2, 3}, {4, 5, 6}};
+
+        // Act
+        int[][] result = algorithm.optimize(population);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(population.length, result.length);
+        for (int i = 0; i < population.length; i++) {
+            assertArrayEquals(population[i], result[i]);
+        }
+    }
+
+    @Test
+    public void testOptimize_NullPopulation() throws EvolutionaryAlgorithmException {
+        // Arrange
+        int[][] population = null;
+
+        assertThrows(EvolutionaryAlgorithmException.class, () -> {
+            algorithm.optimize(population);
+
+        });
+        // Act & Assert
+    }
 }
